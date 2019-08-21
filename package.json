@@ -21,6 +21,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "vue-cli-plugin-pug": "^1.0.7",
+    "vue-cli-plugin-sass-resources-loader": "^1.0.0",
     "vue-cli-plugin-scss-base": "^0.2.2",
     "vue-template-compiler": "^2.6.10"
   }
