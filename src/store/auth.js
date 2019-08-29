@@ -1,5 +1,5 @@
-//import Vue from 'vue'
-import axios from 'axios'
+import Vue from 'vue'
+
 import {
   LOGIN,
   LOGIN_ROUTINE
@@ -11,6 +11,8 @@ function initialState() {
     exp: null,
     email: null,
     username: null,
+    isLoggedin: !!localStorage.getItem('auth_token'),
+    pending: false
   }
 }
 
@@ -23,23 +25,24 @@ export default {
       state.exp = exp
       state.username = username
       state.email = email
-      console.log(state)
     }
   },
   getters: {
-    isAuthenticated: state => !!state.token
+    isAuthenticated: state => !!state.token,
   },
   actions: {
     [LOGIN_ROUTINE]: async ({commit}, { token, exp, username, email}) => {
       localStorage.setItem('auth_token', token)
       commit(LOGIN,{ token, exp, username, email})
+      console.log(`User ${username} has successfully logged in!`)
     },
     [LOGIN]: async ({dispatch}, { email, password }) => {
-      let response = await axios.post('http://localhost:3000/auth/login',{ email, password })
+      let response = await Vue.axios.post('/auth/login',{ email, password })
       let {token, exp, username} = response.data
 
       if (token){
         dispatch(LOGIN_ROUTINE, {token,exp,username,email})
+        return true
       }
     }
   }
