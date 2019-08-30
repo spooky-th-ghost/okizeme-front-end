@@ -1,17 +1,28 @@
 <template lang='pug'>
   #app-header
-    .logo-container
-      span(class='logo big-text') OKI
-      span(class='logo small-text') ZE.ME
-    .nav-link-container
-      .nav-link(@click="visitLink('characters')" :class="{'nav-active': isCurrentRoute('characters')}") Characters
-      .nav-link(@click="visitLink('users')" :class="{'nav-active': isCurrentRoute('users')}") Users
-      .nav-link(@click="visitLink('bugs')") Bugs
-    .auth-container
-      .logged-in(v-if="$store.getters.isAuthenticated")
-        .nav-link Profile
-      .logged-out(v-else)
-        .nav-link(@click="visitLink('auth.login')" :class="{'nav-active': isCurrentRoute('auth.login')}") Login
+    mq-layout(mq='tablet+')
+      .header-container
+        .logo-container
+          span(class='logo big-text') OKI
+          span(class='logo small-text') ZE.ME
+        .nav-link-container
+          .nav-link(@click="visitLink('characters')" :class="{'nav-active': isCurrentRoute('characters')}") Characters
+          .nav-link(@click="visitLink('users')" :class="{'nav-active': isCurrentRoute('users')}") Users
+          .nav-link(@click="visitLink('bugs')") Bugs
+        .mq-header-nav(@click='toggleDropDown') &#9776;
+          .dropdown-content(:style='dropDownStyle')
+        .auth-container
+          .logged-in(v-if="$store.getters.isAuthenticated")
+            .nav-link Profile
+          .logged-out(v-else)
+            .nav-link(@click="visitLink('auth.login')" :class="{'nav-active': isCurrentRoute('auth.login')}") Login
+    mq-layout(mq='mobile')
+      .header-container
+        .logo-container
+          span(class='logo big-text') OKI
+          span(class='logo small-text') ZE.ME 
+        .mq-header-nav(@click="toggleDropDown") &#9776;
+          .dropdown-content(:style='dropDownStyle')
 </template>
 
 <script>
@@ -21,6 +32,13 @@ export default {
   name: 'app-header',
   components: {
     CB
+  },
+  data (){
+    return {
+      dropDownStyle: {
+        display: 'none'
+      }
+    }
   },
   methods: {
     visitLink(key) {
@@ -34,6 +52,13 @@ export default {
     },
     isCurrentRoute(key) {
       return this.$route.name == key
+    },
+    toggleDropDown (){
+      if (this.dropDownStyle.display === 'none') {
+        this.dropDownStyle.display === 'flex'
+      } else {
+        this.dropDownStyle.display === 'none'
+      }
     }
   },
 }
@@ -43,14 +68,15 @@ export default {
 <style lang='scss'>
   @import '@/scss/base.scss';
 
-  #app-header{
+  .header-container{
     height: 8rem;
     width: 100vw;
-    background: rgb(255, 167, 5);
+    background: #FFA705;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: space-between;
+    user-select: none;
   }
   
   .logo-container{
@@ -96,10 +122,8 @@ export default {
     font-weight: bold;
     font-family: $oswald;
     font-size: 3rem;
-    cursor: pointer;
     color: white;
     transition: 0.3s all;
-    user-select: none;
 
     &:hover{
       color: black;
@@ -108,5 +132,15 @@ export default {
 
   .nav-active{
     color: black
+  }
+
+  .nav-link, .mq-header-nav{
+    cursor: pointer;
+  }
+
+  .mq-header-nav{
+    font-size: 5rem;
+    font-weight:bold;
+    line-height: -1rem;
   }
 </style>

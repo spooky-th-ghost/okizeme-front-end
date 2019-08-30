@@ -16,13 +16,13 @@ export default {
       default: '40rem'
     },
     headerColor: {
-      default: 'darkgrey'
+      default: this.$store.state.primaryColor
     },
     headerText: {
       default: 'white'
     },
     bodyColor: {
-      default: 'lightgrey'
+      default: this.$store.state.primaryLight
     },
     bodyText: {
       default: 'black'
@@ -51,6 +51,9 @@ export default {
         color: this.bodyText
         }
     }
+  },
+  created(){
+    console.log(this.$store.state.primaryLight)
   }
 
 }

@@ -1,23 +1,28 @@
 import Vue from 'vue'
+import VueMq from 'vue-mq'
+
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import './utils/api'
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 
 // Global components
 import Card from '@/components/global/Card'
 
-Vue.component('card',Card)
-
-library.add(faCoffee)
-
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('card', Card)
 
 Vue.config.productionTip = false
+
+Vue.use(VueMq, {
+  breakpoints: {
+    mobile:450,
+    tablet: 900,
+    laptop: 1250,
+    desktop: Infinity
+  }
+})
 
 new Vue({
   router,
