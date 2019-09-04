@@ -1,9 +1,9 @@
-import LoginView from '@/components/views/auth/Login'
+import LoginView from '@/components/views/Login'
 
 export default [
   {
-    path: '/auth/login',
-    name: 'auth.login',
+    path: '/login',
+    name: 'login',
     component: LoginView
   }
 ]

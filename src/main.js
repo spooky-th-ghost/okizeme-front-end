@@ -10,8 +10,10 @@ import './utils/api'
 
 // Global components
 import Card from '@/components/global/Card'
+import NavLink from '@/components/global/NavLink'
 
 Vue.component('card', Card)
+Vue.component('nav-link', NavLink)
 
 Vue.config.productionTip = false
 

@@ -51,11 +51,7 @@ export default {
         color: this.bodyText
         }
     }
-  },
-  created(){
-    console.log(this.$store.state.visual.primaryColor)
   }
-
 }
 </script>
 
